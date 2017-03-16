@@ -36,7 +36,7 @@ document.onkeyup = function(event) {
     guessesLeft--;
     //guess is compared to computer's choice
   var userGuess = String.fromCharCode(event.keyCode).toLowerCase();
-    //compute the response and push updates
+    //compute the response and push updates.
     guessedLetters.push(userGuess);
     updateGuessesLeft();
     updateGuessesSoFar();
@@ -56,8 +56,10 @@ document.onkeyup = function(event) {
             reset();
         }
     };
+    //locally you can call functions and variables outside of that local function that are created in the global area but you can't call something that's local within a function in the global area.
+
 // Reset function at the end of each round
-var reset = function() {
+      function reset() {
       totalGuesses = 9;
       guessedLetters = [];
       guessesLeft = 9;  
@@ -67,15 +69,15 @@ var reset = function() {
       }
 
 //Updating guesses in the html
-var updateGuessesLeft = function() {
+function updateGuessesLeft() {
   document.getElementById('guessLeft').innerHTML = "Guesses Remaining: " + guessesLeft;
 };
 // update the computer's chosen letter
-var updateLetterToGuess = function() {
+function updateLetterToGuess() {
   this.letterToGuess = this.computerOptions[Math.floor(Math.random() * this.computerOptions.length)];
 };
 //update list of letters tried by player
-var updateGuessesSoFar = function() {
+function updateGuessesSoFar() {
   document.getElementById('guessesSoFar').innerHTML = " Guesses so far: " + guessedLetters.join(', ');
 };
 
