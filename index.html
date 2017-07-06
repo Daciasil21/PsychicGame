@@ -17,75 +17,52 @@
         <p id="guessesSoFar">Guesses so far: </p> 
     </section>
 <script>
-
-//counter keepers
 var wins = 0;
 var losses = 0;
-var guesses = 9;
-var guessesLeft = 9;
-var targetLetter = null;
 var guessedLetters = [];
-
+var guessesLeft = 9;
+var guessesSoFar = 0;
 
 //Options
-var computerChoices = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'];
-
-//Computer selects random letter
-var computerChosen = computerChoices[Math.floor(Math.random() * computerChoices.length)];
-
+computerOptions = ['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z'];
+computerChoice = computerOptions[Math.floor(Math.random() * computerOptions.length)];
 //Player guesses, guesses go down
-document.onkeyup = function(event) {
+document.onkeyup = function(key) {
     guessesLeft--;
     //guess is compared to computer's choice
-  var userGuess = String.fromCharCode(event.keyCode).toLowerCase();
+  var userGuess = String.fromCharCode(key.keyCode).toLowerCase();
     //compute the response and push updates.
     guessedLetters.push(userGuess);
     updateGuessesLeft();
     updateGuessesSoFar();
           //win
-        if (guessesLeft > 0){
-            if (userGuess === targetLetter){
-               wins++;
-                document.getElementById('wins').innerHTML = "Wins: " + wins;
-                //reset everything
-                reset();
-            }
-            //lose
-        }else if(guessesLeft === 0){
-            losses++;
-            document.getElementById('losses').innerHTML = "Losses: " + losses;
-            //reset everything 
+        if (guessesLeft > 0) {
+          if (userGuess === computerChoice){
+            wins++;
+            document.getElementById("wins").innerHTML = "wins: " + wins;
             reset();
-        }
-    };
-    //locally you can call functions 
-    //and variables outside of that local function that are 
-    //created in the global area but you can't call something 
-    //that's local within a function in the global area.
+          } 
+        }else if (guessesLeft === 0){
+          losses++;
+          document.getElementById("losses").innerHTML = "losses: " + losses;
+          reset();
+         }
+        };
 
-// Reset function at the end of each round
-      function reset() {
-      totalGuesses = 9;
-      guessedLetters = [];
-      guessesLeft = 9;  
-      updatetargetLetter();
-      updateGuessesSoFar();
-      updateGuessesLeft();
-      }
 
-//Updating guesses in the html
-function updateGuessesLeft() {
-  document.getElementById('guessLeft').innerHTML = "Guesses Remaining: " + guessesLeft;
-};
-// update the computer's chosen letter
-function updatetargetLetter() {
-  this.targetLetter = this.computerChoices[Math.floor(Math.random() * this.computerChoices.length)];
-};
-//update list of letters tried by player
-function updateGuessesSoFar() {
-  document.getElementById('guessesSoFar').innerHTML = " Guesses so far: " + guessedLetters.join(', ');
-};
+function reset (){
+ guessedLetters = [];
+ guessesLeft = 9;
+updateGuessesLeft();
+updateGuessesSoFar();
+}
 
+function updateGuessesLeft (){
+  document.getElementById("guessLeft").innerHTML = "Guesses Left: " + guessesLeft;
+}
+function updateGuessesSoFar(){
+  document.getElementById("guessesSoFar").innerHTML = guessedLetters.join(", ");
+}
 </script>
 </body>
 </html>
